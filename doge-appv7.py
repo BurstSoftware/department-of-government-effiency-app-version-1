@@ -1,4 +1,5 @@
-# import streamlit as st
+# Import necessary libraries
+import streamlit as st
 import pandas as pd
 import numpy as np
 import altair as alt
@@ -98,7 +99,7 @@ def download_agency_data():
 
 # Main function
 def main():
-    st.sidebar.title("Navigation")
+    st.sidebar.header("Navigation")  # Fixed compatibility for sidebar
     option = st.sidebar.radio("Select a Section", ["Agency Data", "Download Agency Report"])
     
     if option == "Agency Data":
@@ -106,5 +107,11 @@ def main():
     elif option == "Download Agency Report":
         download_agency_data()
 
+# Run the app with error handling
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
+        import traceback
+        st.text(traceback.format_exc())
