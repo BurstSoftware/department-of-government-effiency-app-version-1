@@ -1,0 +1,69 @@
+Agency Name,Type,Parent Department,Category,Acronym
+Access Board U.S.,Independent Agency,,Regulatory,USAB
+Administration for Children and Families,Sub-Agency,Health and Human Services,Social Services,ACF
+Administration for Community Living,Sub-Agency,Health and Human Services,Social Services,ACL
+Administration for Native Americans,Sub-Agency,Health and Human Services,Social Services,ANA
+Administrative Conference of the United States,Independent Agency,,Administrative,ACUS
+Agency for Global Media U.S.,Independent Agency,,Communications,USAGM
+Agency for International Development U.S.,Independent Agency,,International,USAID
+Air Force U.S.,Military Service,Defense,Defense,USAF
+American Battle Monuments Commission,Independent Agency,,Memorial,ABMC
+Amtrak,Government Corporation,,Transportation,AMTRAK
+Animal and Plant Health Inspection Service,Sub-Agency,Agriculture,Agriculture,APHIS
+Antitrust Division,Sub-Agency,Justice,Legal,ATR
+Appalachian Regional Commission,Independent Agency,,Development,ARC
+Architect of the Capitol,Legislative Branch Agency,,Facilities,AOC
+Army U.S.,Military Service,Defense,Defense,USA
+Army Corps of Engineers U.S.,Military Service,Defense,Engineering,USACE
+Bonneville Power Administration,Sub-Agency,Energy,Energy,BPA
+Bureau of Alcohol Tobacco Firearms and Explosives,Sub-Agency,Justice,Law Enforcement,ATF
+Bureau of Engraving and Printing,Sub-Agency,Treasury,Finance,BEP
+Bureau of Indian Affairs,Sub-Agency,Interior,Native Affairs,BIA
+Bureau of Labor Statistics,Sub-Agency,Labor,Statistics,BLS
+Bureau of Land Management,Sub-Agency,Interior,Land Management,BLM
+Census Bureau,Sub-Agency,Commerce,Statistics,USCB
+Centers for Disease Control and Prevention,Sub-Agency,Health and Human Services,Health,CDC
+Central Intelligence Agency,Independent Agency,,Intelligence,CIA
+Coast Guard U.S.,Military Service,Homeland Security,Defense,USCG
+Customs and Border Protection,Sub-Agency,Homeland Security,Law Enforcement,CBP
+Defense Intelligence Agency,Sub-Agency,Defense,Intelligence,DIA
+Department of Agriculture,Cabinet Department,,Agriculture,USDA
+Department of Commerce,Cabinet Department,,Commerce,DOC
+Department of Defense,Cabinet Department,,Defense,DOD
+Department of Education,Cabinet Department,,Education,ED
+Department of Energy,Cabinet Department,,Energy,DOE
+Department of Health and Human Services,Cabinet Department,,Health,HHS
+Department of Homeland Security,Cabinet Department,,Security,DHS
+Department of Housing and Urban Development,Cabinet Department,,Housing,HUD
+Department of Justice,Cabinet Department,,Justice,DOJ
+Department of Labor,Cabinet Department,,Labor,DOL
+Department of State,Cabinet Department,,Foreign Affairs,DOS
+Department of the Interior,Cabinet Department,,Interior,DOI
+Department of the Treasury,Cabinet Department,,Finance,TREASURY
+Department of Transportation,Cabinet Department,,Transportation,DOT
+Department of Veterans Affairs,Cabinet Department,,Veterans,VA
+Environmental Protection Agency,Independent Agency,,Environmental,EPA
+Federal Aviation Administration,Sub-Agency,Transportation,Transportation,FAA
+Federal Bureau of Investigation,Sub-Agency,Justice,Law Enforcement,FBI
+Federal Emergency Management Agency,Sub-Agency,Homeland Security,Emergency Management,FEMA
+Federal Reserve System,Independent Agency,,Finance,FED
+Food and Drug Administration,Sub-Agency,Health and Human Services,Health,FDA
+Government Accountability Office,Legislative Branch Agency,,Oversight,GAO
+Internal Revenue Service,Sub-Agency,Treasury,Finance,IRS
+National Aeronautics and Space Administration,Independent Agency,,Space,NASA
+National Archives and Records Administration,Independent Agency,,Records,NARA
+National Institutes of Health,Sub-Agency,Health and Human Services,Health,NIH
+National Labor Relations Board,Independent Agency,,Labor,NLRB
+National Park Service,Sub-Agency,Interior,Parks,NPS
+National Science Foundation,Independent Agency,,Science,NSF
+National Security Agency,Sub-Agency,Defense,Intelligence,NSA
+Nuclear Regulatory Commission,Independent Agency,,Energy,NRC
+Office of Personnel Management,Independent Agency,,Personnel,OPM
+Peace Corps,Independent Agency,,International,PC
+Postal Service U.S.,Independent Agency,,Mail,USPS
+Securities and Exchange Commission,Independent Agency,,Finance,SEC
+Small Business Administration,Independent Agency,,Business,SBA
+Social Security Administration,Independent Agency,,Social Services,SSA
+Supreme Court U.S.,Judicial Branch,,Legal,SCOTUS
+Veterans Health Administration,Sub-Agency,Veterans Affairs,Health,VHA
+White House,Executive Office,,Executive,EOP
