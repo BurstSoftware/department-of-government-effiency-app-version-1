@@ -124,7 +124,7 @@ st.sidebar.header("Data Source Configuration")
 data_source = st.sidebar.radio("Select Data Source:", ["GitHub Repository", "File Upload"])
 
 if data_source == "GitHub Repository":
-    github_url = "https://github.com/SimpleMobileResponsiveWebsites/department-of-government-effiency-app-version-1/blob/main/downloaded_data%20(5).csv"
+    github_url = ""https://raw.githubusercontent.com/<https://github.com/SimpleMobileResponsiveWebsites/department-of-government-effiency-app-version-1/blob/main/downloaded_data%20(5).csv>/departments.csv""
     departments_df = load_github_data(github_url)
 else:
     uploaded_file = st.sidebar.file_uploader("Upload department data file:", type=["csv", "json", "xml"])
