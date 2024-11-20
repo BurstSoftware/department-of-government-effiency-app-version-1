@@ -37,7 +37,7 @@ def load_github_data(url):
         return pd.read_csv(StringIO(csv_data))
     except requests.exceptions.RequestException as e:
         logging.error(f"GitHub data load error: {e}")
-        st.error(f"Failed to load GitHub data. Using default dataset.")
+        st.error("Failed to load GitHub data. Using default dataset.")
         return DEFAULT_DATA
 
 # Parse uploaded files
@@ -48,18 +48,14 @@ def parse_uploaded_file(file):
     try:
         file_extension = file.name.split('.')[-1].lower()
         if file_extension == "csv":
-            df = pd.read_csv(file)
-            st.sidebar.success("CSV file loaded successfully")
-            return df
+            return pd.read_csv(file)
         elif file_extension == "json":
             data = json.load(file)
-            st.sidebar.success("JSON file loaded successfully")
             return pd.DataFrame(data)
         elif file_extension == "xml":
             tree = ET.parse(file)
             root = tree.getroot()
             data = [{child.tag: child.text for child in element} for element in root]
-            st.sidebar.success("XML file loaded successfully")
             return pd.DataFrame(data)
         else:
             st.sidebar.error("Unsupported file format")
