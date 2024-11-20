@@ -8,28 +8,41 @@ import requests
 from io import BytesIO, StringIO
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
+import logging
 
-# Set page config
+# Configure logging
+logging.basicConfig(level=logging.ERROR, format="%(asctime)s - %(message)s")
+
+# Set page configuration
 st.set_page_config(
     page_title="Government Department Efficiency Calculator",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
+# Default data in case of GitHub failure
+DEFAULT_DATA = pd.DataFrame({
+    "department_name": ["Department of Public Works", "Health and Human Services"],
+    "category": ["Public Services", "Healthcare"]
+})
+
 # Cache data loading function
 @st.cache_data
 def load_github_data(url):
+    """Load data from a GitHub URL or return default data on failure."""
     try:
         response = requests.get(url)
         response.raise_for_status()
         csv_data = response.content.decode('utf-8')
         return pd.read_csv(StringIO(csv_data))
-    except Exception as e:
-        st.error(f"Failed to load GitHub data: {e}")
-        return None
+    except requests.exceptions.RequestException as e:
+        logging.error(f"GitHub data load error: {e}")
+        st.error(f"Failed to load GitHub data. Using default dataset.")
+        return DEFAULT_DATA
 
 # Parse uploaded files
 def parse_uploaded_file(file):
+    """Parse uploaded file and return a DataFrame."""
     if file is None:
         return None
     try:
@@ -55,58 +68,9 @@ def parse_uploaded_file(file):
         st.sidebar.error(f"Failed to load file: {e}")
         return None
 
-# Title and description
-st.title("Government Department Efficiency Calculator")
-st.markdown("""
-This application helps assess and visualize the efficiency of government departments.
-Rate each component based on current department performance and governance metrics.
-""")
-
-# Sidebar for data source selection
-st.sidebar.header("Data Source Configuration")
-data_source = st.sidebar.radio("Select Data Source:", ["GitHub Repository", "File Upload"])
-
-if data_source == "GitHub Repository":
-    github_url = "https://raw.githubusercontent.com/SimpleMobileResponsiveWebsites/department-of-government-efficiency/main/departments.csv"
-    departments_df = load_github_data(github_url)
-else:
-    uploaded_file = st.sidebar.file_uploader("Upload department data file:", type=["csv", "json", "xml"])
-    departments_df = parse_uploaded_file(uploaded_file)
-
-# Initialize session state
-if 'total_weight' not in st.session_state:
-    st.session_state.total_weight = 0
-
-# Define efficiency categories
-efficiency_categories = {
-    "Operational Efficiency": {
-        "Process Optimization": 0,
-        "Resource Utilization": 0,
-        "Service Delivery Speed": 0,
-        "Digital Transformation": 0
-    },
-    "Fiscal Efficiency": {
-        "Budget Management": 0,
-        "Cost Control": 0,
-        "Resource Allocation": 0,
-        "Financial Transparency": 0
-    },
-    "Administrative Efficiency": {
-        "Paperwork Processing": 0,
-        "Response Time": 0,
-        "Staff Productivity": 0,
-        "Regulatory Compliance": 0
-    },
-    "Public Service Efficiency": {
-        "Citizen Satisfaction": 0,
-        "Service Accessibility": 0,
-        "Communication Effectiveness": 0,
-        "Public Engagement": 0
-    }
-}
-
-# Utility Functions
+# Utility functions for calculations
 def calculate_efficiency_score(employees, budget, utilization, oversight, num_regulations, economic_oversight, effectiveness_score):
+    """Calculate department efficiency score."""
     score = (
         (utilization * 0.3) +
         ((100 - oversight) * 0.2) +
@@ -118,9 +82,10 @@ def calculate_efficiency_score(employees, budget, utilization, oversight, num_re
     return min(score / 1.5, 100)
 
 def calculate_effectiveness_score(communication, transparency, responsiveness, policy_impact, citizen_satisfaction):
+    """Calculate effectiveness score based on qualitative metrics."""
     return (communication + transparency + responsiveness + policy_impact + citizen_satisfaction) / 5 * 20
 
-# Export Functions
+# Export functions
 def convert_to_csv(data):
     return data.to_csv(index=False).encode('utf-8')
 
@@ -147,46 +112,62 @@ def convert_to_pdf(data):
     buffer.seek(0)
     return buffer
 
-# Main Assessment Interface
-tab1, tab2 = st.tabs(["Metric Assessment", "Detailed Department Data"])
+# Title and description
+st.title("Government Department Efficiency Calculator")
+st.markdown("""
+This application helps assess and visualize the efficiency of government departments.  
+Rate each component based on current department performance and governance metrics.
+""")
 
-# Department selection for both tabs
+# Sidebar for data source selection
+st.sidebar.header("Data Source Configuration")
+data_source = st.sidebar.radio("Select Data Source:", ["GitHub Repository", "File Upload"])
+
+if data_source == "GitHub Repository":
+    github_url = "https://raw.githubusercontent.com/SimpleMobileResponsiveWebsites/department-of-government-efficiency/main/departments.csv"
+    departments_df = load_github_data(github_url)
+else:
+    uploaded_file = st.sidebar.file_uploader("Upload department data file:", type=["csv", "json", "xml"])
+    departments_df = parse_uploaded_file(uploaded_file)
+
+# Initialize session state
+if 'total_weight' not in st.session_state:
+    st.session_state.total_weight = 0
+
+# Define efficiency categories
+efficiency_categories = {
+    "Operational Efficiency": {"Process Optimization": 0, "Resource Utilization": 0, "Service Delivery Speed": 0, "Digital Transformation": 0},
+    "Fiscal Efficiency": {"Budget Management": 0, "Cost Control": 0, "Resource Allocation": 0, "Financial Transparency": 0},
+    "Administrative Efficiency": {"Paperwork Processing": 0, "Response Time": 0, "Staff Productivity": 0, "Regulatory Compliance": 0},
+    "Public Service Efficiency": {"Citizen Satisfaction": 0, "Service Accessibility": 0, "Communication Effectiveness": 0, "Public Engagement": 0}
+}
+
+# Department selection
 if departments_df is not None:
     department_list = departments_df['department_name'].tolist() if 'department_name' in departments_df.columns else []
 else:
     department_list = ["Department of Public Works"]  # Default fallback
 
+# Main assessment interface
+tab1, tab2 = st.tabs(["Metric Assessment", "Detailed Department Data"])
+
+# Metric Assessment Tab
 with tab1:
     st.header("Department Selection")
-    selected_department_tab1 = st.selectbox(
-        "Select Department for Assessment",
-        department_list,
-        key="dept_select_tab1"
-    )
-    
-    # Rest of tab1 code...
+    selected_department_tab1 = st.selectbox("Select Department for Assessment", department_list, key="dept_select_tab1")
+
     st.header("Efficiency Metrics")
     cols = st.columns(len(efficiency_categories))
-    
     category_totals = {}
-    
+
     for idx, (category, metrics) in enumerate(efficiency_categories.items()):
         with cols[idx]:
             st.subheader(category)
             category_total = 0
-            
             for metric, _ in metrics.items():
-                value = st.slider(
-                    f"{metric}",
-                    min_value=0,
-                    max_value=25,
-                    value=0,
-                    help=f"Rate {metric} from 0-25",
-                    key=f"{category}_{metric}"
-                )
+                value = st.slider(f"{metric}", min_value=0, max_value=25, value=0, help=f"Rate {metric} from 0-25", key=f"{category}_{metric}")
                 efficiency_categories[category][metric] = value
                 category_total += value
-            
             category_totals[category] = category_total
             st.metric(f"Total {category}", f"{category_total}%")
 
@@ -199,151 +180,58 @@ with tab1:
     st.header("Efficiency Visualizations")
     col1, col2 = st.columns(2)
 
-    # Radar Chart
     with col1:
         categories = list(category_totals.keys())
         values = list(category_totals.values())
-        
-        fig = go.Figure(data=go.Scatterpolar(
-            r=values,
-            theta=categories,
-            fill='toself'
-        ))
-        
-        fig.update_layout(
-            polar=dict(radialaxis=dict(visible=True, range=[0, 100])),
-            showlegend=False,
-            title="Efficiency Radar Chart"
-        )
+        fig = go.Figure(data=go.Scatterpolar(r=values, theta=categories, fill='toself'))
+        fig.update_layout(polar=dict(radialaxis=dict(visible=True, range=[0, 100])), showlegend=False, title="Efficiency Radar Chart")
         st.plotly_chart(fig)
 
-    # Bar Chart
     with col2:
-        metrics_data = []
-        for category, metrics in efficiency_categories.items():
-            for metric, value in metrics.items():
-                metrics_data.append({
-                    "Category": category,
-                    "Metric": metric,
-                    "Value": value
-                })
-        
+        metrics_data = [{"Category": category, "Metric": metric, "Value": value} for category, metrics in efficiency_categories.items() for metric, value in metrics.items()]
         df_metrics = pd.DataFrame(metrics_data)
-        fig = px.bar(
-            df_metrics,
-            x="Value",
-            y="Metric",
-            color="Category",
-            title="Detailed Metrics Breakdown",
-            orientation='h'
-        )
-        fig.update_layout(yaxis={'categoryorder':'total ascending'})
+        fig = px.bar(df_metrics, x="Value", y="Metric", color="Category", title="Detailed Metrics Breakdown", orientation='h')
+        fig.update_layout(yaxis={'categoryorder': 'total ascending'})
         st.plotly_chart(fig)
 
+# Detailed Department Data Tab
 with tab2:
     st.header("Department Selection")
-    selected_department_tab2 = st.selectbox(
-        "Select Department for Detailed Data",
-        department_list,
-        key="dept_select_tab2"
-    )
-    
-    # Rest of tab2 code...
+    selected_department_tab2 = st.selectbox("Select Department for Detailed Data", department_list, key="dept_select_tab2")
+
     st.header("Enter Detailed Department Data")
-    
-    # Basic Information
     department_name = st.text_input("Department Name", value=selected_department_tab2)
     department_desc = st.text_area("Description of the Department", value="Handles infrastructure and public works projects.")
     employees = st.number_input("Number of Employees", min_value=1, value=500)
-    
-    # Governance Information
     current_governance = st.text_area("Current Areas of Governance", value="Road maintenance, public parks, waste management.")
     suggested_governance = st.text_area("Suggested Areas of Governance", value="Renewable energy infrastructure, smart city development.")
-    
-    # Governing Regulations
     st.subheader("Governing Regulations")
     num_regulations = st.number_input("Number of regulations", min_value=0, value=3)
-    regulations = []
-    for i in range(num_regulations):
-        regulations.append(st.text_input(f"Regulation {i + 1}", value=f"Regulation {i + 1}"))
-    
-    # Budget and Oversight
+    regulations = [st.text_input(f"Regulation {i + 1}", value=f"Regulation {i + 1}") for i in range(num_regulations)]
+
     col1, col2 = st.columns(2)
+
     with col1:
-        budget = st.number_input("Annual Budget (in Million USD)", min_value=0.0, value=100.0)
-        utilization = st.slider("Budget Utilization (%)", 0, 100, 75)
+        st.header("Export Department Data")
+        export_data = {
+            "Department Name": department_name,
+            "Description": department_desc,
+            "Number of Employees": employees,
+            "Current Governance Areas": current_governance,
+            "Suggested Governance Areas": suggested_governance,
+            "Number of Regulations": num_regulations,
+            "Regulations": regulations
+        }
+
+        csv_data = convert_to_csv(pd.DataFrame([export_data]))
+        st.download_button("Download as CSV", data=csv_data, file_name="department_data.csv")
+
+        json_data = convert_to_json(export_data)
+        st.download_button("Download as JSON", data=json_data, file_name="department_data.json")
+
     with col2:
-        oversight = st.slider("Regulatory Oversight Level", 0, 100, 50)
-        economic_oversight = st.slider("Economic Oversight Level", 0, 100, 50)
-    
-    # Qualitative Assessment
-    st.subheader("Qualitative Assessment")
-    qual_metrics = ["Communication", "Transparency", "Responsiveness", "Policy Impact", "Citizen Satisfaction"]
-    qual_scores = {}
-    for metric in qual_metrics:
-        qual_scores[metric] = st.select_slider(
-            metric,
-            options=[1, 2, 3, 4, 5],
-            format_func=lambda x: ["Very Poor", "Poor", "Average", "Good", "Excellent"][x-1]
-        )
+        xml_data = convert_to_xml(export_data)
+        st.download_button("Download as XML", data=xml_data, file_name="department_data.xml")
 
-    effectiveness_score = calculate_effectiveness_score(
-        qual_scores["Communication"],
-        qual_scores["Transparency"],
-        qual_scores["Responsiveness"],
-        qual_scores["Policy Impact"],
-        qual_scores["Citizen Satisfaction"]
-    )
-
-    efficiency_score = calculate_efficiency_score(
-        employees, budget, utilization, oversight,
-        num_regulations, economic_oversight, effectiveness_score
-    )
-
-    # Prepare export data
-    export_data = {
-        "Department Name": department_name,
-        "Description": department_desc,
-        "Employees": employees,
-        "Current Governance": current_governance,
-        "Suggested Governance": suggested_governance,
-        "Regulations": ", ".join(regulations),
-        "Budget (Million USD)": budget,
-        "Budget Utilization (%)": utilization,
-        "Regulatory Oversight (%)": oversight,
-        "Economic Oversight (%)": economic_oversight,
-        "Effectiveness Score": effectiveness_score,
-        "Efficiency Score": efficiency_score,
-        "Category Scores": category_totals,
-        "Detailed Metrics": efficiency_categories
-    }
-
-    # Export options
-    st.header("Export Options")
-    col1, col2 = st.columns(2)
-    with col1:
-        st.download_button(
-            "Download as CSV",
-            data=convert_to_csv(pd.DataFrame([export_data])),
-            file_name="department_efficiency.csv",
-            mime="text/csv"
-        )
-        st.download_button(
-            "Download as JSON",
-            data=convert_to_json(export_data),
-            file_name="department_efficiency.json",
-            mime="application/json"
-        )
-    with col2:
-        st.download_button(
-            "Download as XML",
-            data=convert_to_xml(export_data),
-            file_name="department_efficiency.xml",
-            mime="application/xml"
-        )
-        st.download_button(
-            "Download as PDF",
-            data=convert_to_pdf(export_data),
-            file_name="department_efficiency.pdf",
-            mime="application/pdf"
-        )
+        pdf_data = convert_to_pdf(export_data)
+        st.download_button("Download as PDF", data=pdf_data, file_name="department_data.pdf", mime="application/pdf")
