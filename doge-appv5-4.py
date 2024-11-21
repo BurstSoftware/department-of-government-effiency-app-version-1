@@ -128,7 +128,7 @@ uploaded_file = st.sidebar.file_uploader(
 )
 
 # Load default data
-github_url = "https://raw.githubusercontent.com/SimpleMobileResponsiveWebsites/department-of-government-effiencyapp-version-1/main/agenices_list_1.csv"
+github_url = "https://raw.githubusercontent.com/SimpleMobileResponsiveWebsites/department-of-government-effiency-app-version-1/main/agenices_list_1.csv"
 @st.cache_data
 def load_github_csv(url):
     response = requests.get(url)
