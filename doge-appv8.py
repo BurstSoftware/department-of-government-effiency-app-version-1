@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 # Define efficiency categories and actions with weights
 categories = {
@@ -42,14 +43,21 @@ def calculate_overall_efficiency(scores):
 st.title("Efficiency Calculator Application")
 st.write("Evaluate the efficiency of your department or processes based on the following categories.")
 
-# Category selection and score calculation
 category_scores = []
+selected_actions_dict = []
+
+# Category selection and score calculation
 for category, actions in categories.items():
     st.subheader(f"{category}")
     selected_actions = st.multiselect(f"Select actions under {category}:", options=list(actions.keys()))
     category_score = calculate_category_score(selected_actions, actions)
     st.write(f"Category Score: {category_score:.2f}%")
     category_scores.append(category_score)
+    selected_actions_dict.append({
+        "Category": category,
+        "Selected Actions": ', '.join(selected_actions),
+        "Category Score": f"{category_score:.2f}%"
+    })
 
 # Calculate overall efficiency score
 overall_score = calculate_overall_efficiency(category_scores)
@@ -63,3 +71,18 @@ elif overall_score > 50:
     st.warning("Your department is moderately efficient. There are opportunities for improvement.")
 else:
     st.error("Your department is underperforming. Focus on improving key areas for better efficiency.")
+
+# Create a DataFrame to store the results
+df = pd.DataFrame(selected_actions_dict)
+
+# Add a row for the overall score at the end
+df = df.append({"Category": "Overall", "Selected Actions": "N/A", "Category Score": f"{overall_score:.2f}%"}, ignore_index=True)
+
+# Provide the download button for the CSV
+csv = df.to_csv(index=False)
+st.download_button(
+    label="Download Results as CSV",
+    data=csv,
+    file_name="efficiency_scores.csv",
+    mime="text/csv"
+)
