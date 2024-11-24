@@ -72,7 +72,10 @@ def main():
     
     # Create a DataFrame for download
     df = pd.DataFrame(selected_actions_all_categories)
-    df = df.append({"Category": "Overall", "Selected Actions": "N/A", "Category Score": f"{overall_score:.2f}%"}, ignore_index=True)
+    
+    # Adding the "Overall" row using concat instead of append
+    overall_data = pd.DataFrame([{"Category": "Overall", "Selected Actions": "N/A", "Category Score": f"{overall_score:.2f}%"}])
+    df = pd.concat([df, overall_data], ignore_index=True)
 
     # Button for downloading CSV
     st.subheader("Download your results")
