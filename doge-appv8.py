@@ -75,8 +75,15 @@ else:
 # Create a DataFrame to store the results
 df = pd.DataFrame(selected_actions_dict)
 
-# Add a row for the overall score at the end
-df = df.append({"Category": "Overall", "Selected Actions": "N/A", "Category Score": f"{overall_score:.2f}%"}, ignore_index=True)
+# Add a row for the overall score at the end using pd.concat
+overall_row = pd.DataFrame([{
+    "Category": "Overall", 
+    "Selected Actions": "N/A", 
+    "Category Score": f"{overall_score:.2f}%"
+}])
+
+# Concatenate the overall row to the DataFrame
+df = pd.concat([df, overall_row], ignore_index=True)
 
 # Provide the download button for the CSV
 csv = df.to_csv(index=False)
