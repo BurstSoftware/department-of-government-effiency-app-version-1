@@ -16,3 +16,7 @@
 # Debt Restructuring: The plan might include reducing debts, changing payment terms, or other measures to make the business viable.
 
 # Chapter 11 is more complex and expensive than other types of bankruptcy, such as Chapter 7 (liquidation) or Chapter 13 (repayment plan for individuals), but it can provide a valuable opportunity for businesses to get back on their feet.
+
+# Bankruptcy Data & Statistics
+# https://www.bankruptcywatch.com/statistics
+
