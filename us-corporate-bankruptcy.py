@@ -24,3 +24,15 @@
 # how many employees were out of a job since 11,240 companies went out of business in 2024
 # To estimate the number of employees affected, we can use the average number of employees per company. Based on available data, the average small business has around 132 employees.
 # Using this average, we can estimate that approximately 1,485,680 employees (11,240 companies * 132 employees per company) were affected by these bankruptcies in 2024
+
+# what would the total loss in wages be for 1,485,680 workers 
+
+# To calculate the total median salary for all the employees affected by the bankruptcies, we can multiply the number of employees by the median salary per employee.
+
+# Given:
+# Number of employees: 1,485,680
+# Median salary per employee: $59,228
+# $88,004,612,640
+
+
+
