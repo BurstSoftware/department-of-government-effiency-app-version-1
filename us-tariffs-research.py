@@ -1,0 +1,1 @@
+#In 2024, there were 11,240 business bankruptcy cases filed. This marks a significant increase compared to previous years, with a notable rise in Chapter 11 filings, which are typically used by businesses seeking to reorganize
