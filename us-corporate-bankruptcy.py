@@ -37,7 +37,10 @@
 
 # 1,485,680 employees, median employee salary $59,228, total employees salary $88,004,612,640, per 11,240 companies going bankrupt chapter 7 or 11
 
-# chapter 11, restructuring or liquuidation of company 
+# chapter 11, restructuring or liquidation of company 
+
+# Leading Companies Filing for Bankruptcy – 2024
+# https://intellizence.com/insights/bankruptcy/leading-companies-filing-for-bankruptcy/
 
 
 
