@@ -43,4 +43,79 @@
 # https://intellizence.com/insights/bankruptcy/leading-companies-filing-for-bankruptcy/
 
 
+Here's a list of some notable companies that filed for bankruptcy in 2024:
+
+Tervis Tumbler Co. - Insulated Drinkware (September)
+
+Metro Mattress - Mattress Retail (September)
+
+CareMax - Healthcare (November)
+
+Intrum - Financial Services (November)
+
+TGIF - Restaurant & Food Services (November)
+
+Jerico Pictures - Entertainment (October)
+
+Accuride Corporation - Automobile (October)
+
+Sally's Restaurant & Grill - Restaurants & Food Services (October)
+
+College of Saint Rose - Education (October)
+
+Flabeg Automotive - Automobile (October)
+
+These bankruptcies reflect the ongoing economic challenges faced by companies across various industries.
+
+Here's a list of some notable companies that filed for bankruptcy in 2023:
+
+Tupperware Brands - Consumer Products
+
+Big Lots - Retail
+
+Smoked Dutchman Holdings - Restaurants & Food Services
+
+Red River Talc LLC - Consumer Products
+
+Silvergate Capital - Banking
+
+Flex Intermodal - Transportation
+
+Clarity Diagnostics - Healthcare
+
+Vision Care of Maine - Healthcare
+
+Hawkers Asian Street Fare - Restaurants & Food Services
+
+Edgio - Technology
+
+These bankruptcies reflect the challenges faced by companies across various industries.
+
+Here's a list of some notable companies that filed for bankruptcy in 2022:
+
+FTX Trading Ltd. - Cryptocurrency
+
+Alameda Research - Cryptocurrency
+
+Voyager Digital - Cryptocurrency
+
+Revlon Inc. - Cosmetics
+
+Cineworld - Movie Theaters
+
+Scandinavian Airlines System (SAS) - Airlines
+
+ExpressJet Airlines - Airlines
+
+NewAge - Organic Products
+
+Lumileds Holding B.V. - LED Lighting
+
+Gissing North America - Auto Supplier
+
+These bankruptcies reflect the challenges faced by companies across various industries, including the impact of the pandemic, supply chain disruptions, and economic shifts.
+
+
+
+
 
