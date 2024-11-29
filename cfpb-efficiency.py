@@ -34,10 +34,26 @@
 # if 1,485,680 government employees made $107,271 = $159,370,379,280.00
 # if 2,971,360 government employees made $107,271 = $318,740,758,560.00
 # if 4,457,040 government employees made $107,271 = $478,111,137,840.00
+# if 5,199,880 government employees made $107,271 =  $ 557,796,327,480.00
+
+
 
 
 # if 11,885,440 government employees made $107,271 = $1,274,963,034,240.00
+# if 24,000,000 government employees made $107,271 = $2,574,504,000,000.00
 
+# breakdown of where U.S. government employees work. You can visualize this data into a pie chart easily. Here are the general categories and their approximate percentages:
+
+# Defense and Veterans Affairs: 34%
+# Homeland Security: 14%
+# Health and Human Services: 7%
+# Justice: 6%
+# Treasury: 6%
+# Transportation: 4%
+# Agriculture: 3%
+# Interior: 2%
+# Education: 1%
+# Other Agencies: 23%
 
 
 
