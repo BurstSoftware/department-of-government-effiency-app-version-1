@@ -29,3 +29,16 @@
 
 # per year spend on CPB Salary
 #  $160,906,500.00
+
+
+# if 1,485,680 government employees made $107,271 = $159,370,379,280.00
+# if 2,971,360 government employees made $107,271 = $318,740,758,560.00
+# if 4,457,040 government employees made $107,271 = $478,111,137,840.00
+
+
+# if 11,885,440 government employees made $107,271 = $1,274,963,034,240.00
+
+
+
+
+
